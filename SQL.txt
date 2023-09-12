@@ -1,0 +1,17 @@
+Запрос список логинов курьеров с количеством их заказов
+
+SELECT c.login,COUNT(o.id) 
+FROM "Couriers" AS c 
+INNER JOIN "Orders" AS o ON c.id=o."courierId"  
+WHERE "inDelivery"= true
+GROUP BY c.login;
+
+Вывести заказы(поле tracker) и статусы заказов(поле status)
+SELECT "Orders".id AS tracker,
+CASE
+WHEN "Orders".finished THEN 2
+WHEN cancelled = true THEN -1
+WHEN "Orders"."inDelivery" = true THEN 1
+ELSE 0
+END AS status
+FROM "Orders";
